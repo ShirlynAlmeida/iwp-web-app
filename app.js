@@ -9,10 +9,15 @@ const { checkUser } = require("./middleware/authMiddleware");
 const app = express();
 
 const dbURI = process.env.DB_URI;
+const PORT = process.env.PORT || 3000;
 
 mongoose
   .connect(dbURI)
-  .then((result) => app.listen(3000))
+  .then((result) =>
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    })
+  )
   .catch((err) => console.log(err));
 
 // register view engine
